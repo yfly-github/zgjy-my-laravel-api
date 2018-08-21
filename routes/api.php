@@ -17,13 +17,13 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::group(['prefix' => 'v1','namespace'=>'api','middleware'=>['throttle:20,1']],function(){
+Route::group(['prefix' => 'v1','namespace'=>'Api','middleware'=>['throttle:20,1']],function(){
 
     Route::group(['middleware'=>['auth:api']],function(){
         Route::resource('user','Usercontroller');
     });
 });
-Route::group(['prefix' => 'user','namespace'  => 'api'],function(){
+Route::group(['prefix' => 'user','namespace'  => 'Api','middleware'=>['throttle:200,1']],function(){
     Route::post('userlogin','LoginController@login');
     Route::post('userregister','LoginController@register');
     Route::post('refresh_token','LoginController@refresh_token');

@@ -20,8 +20,8 @@ class PermissionMiddleware extends Authenticate
 {
     protected static $except_router = [
         'LoginController.login',
-        'LoginController@register',
-        'LoginController@refresh_token',
+        'LoginController.register',
+        'LoginController.refresh_token',
     ];
 
 
