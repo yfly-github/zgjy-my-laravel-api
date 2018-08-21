@@ -4,12 +4,9 @@ namespace App\Http\Middleware;
 
 use App\Exceptions\ControllerException;
 use App\Models\PermissionModel;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-
-
 
 /**
  * 验证请求权限

@@ -70,8 +70,6 @@ function getArrayField(array $data, array $fields)
             $result[$key] = $data[$key];
         }
     }
-
-
     return $result;
 }
 
