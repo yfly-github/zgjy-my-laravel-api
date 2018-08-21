@@ -29,12 +29,8 @@ class Usercontroller extends Controller
      */
     public function index(Request $req)
     {
-
         SrsHookValidate::srsHookCallback($req, [
             'page' => '',
-            'app_name' => 'required',
-            'type_id' => 'required',
-            'id' => ''
         ]);
 
         $userlist = $this->users->getUserList($req);
@@ -42,6 +38,8 @@ class Usercontroller extends Controller
 
         $actions = $this->actionRep->actionList($req);
         $data['actions'] = $actions;
+
+
         return success($data);
     }
 

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Validator;
 use App\User;
@@ -19,8 +18,7 @@ class LoginController extends Controller
 {
     public $successStatus = 200;
 
-    use AuthenticatesUsers;
-
+    use ThrottlesLogins;
 
     /**
      * @param Request $request

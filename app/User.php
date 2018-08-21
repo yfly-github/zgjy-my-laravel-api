@@ -53,6 +53,7 @@ class User extends Authenticatable
      */
     public static function findUesrByAttributes(Request $req){
 
+
         $query_where = array(
             'id'    => ['id','=',$req->id],
             'name'  => ['name','like','%'.$req->name.'%'],
@@ -87,5 +88,19 @@ class User extends Authenticatable
         }
         return $model;
     }
+
+
+    public static function findUesrById(Request $request){
+
+        $query_where = array(
+            'name'  => ['name','like','%'.$request->name.'%'],
+        );
+
+        return self::whereQuery(new self(),$query_where)->paginate(15);
+
+    }
+
+
+
 
 }

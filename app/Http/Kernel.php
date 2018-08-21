@@ -29,7 +29,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\ApiMiddleware::class,
             \App\Http\Middleware\PermissionMiddleware::class,
         ],
-        'throttle' => [\Illuminate\Routing\Middleware\ThrottleRequests::class],
     ];
 
     /**
@@ -62,6 +61,5 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'rbac' => \HuangYi\Rbac\RbacMiddleware::class,
-
     ];
 }
