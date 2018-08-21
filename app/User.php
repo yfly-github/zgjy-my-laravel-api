@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Exceptions\DatabaseException;
+use App\Tool\ModelFactory;
 use HuangYi\Rbac\RbacTrait;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +19,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
+    public $fillable = [
         'name', 'email', 'password',
     ];
 
@@ -53,13 +54,15 @@ class User extends Authenticatable
      */
     public static function findUesrByAttributes(Request $req){
 
-
         $query_where = array(
             'id'    => ['id','=',$req->id],
             'name'  => ['name','like','%'.$req->name.'%'],
         );
         try{
-            $user = self::whereQuery( new User,$query_where );
+            $user = (new ModelFactory(new self(),$req->all()))
+                ->constructWhereParam($query_where)
+                ->modelFactoryPaginate();
+
             if (empty($user)){
                 throw new \Exception('用户不存在');
             }

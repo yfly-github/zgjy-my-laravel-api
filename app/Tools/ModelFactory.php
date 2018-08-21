@@ -5,6 +5,8 @@
 namespace App\Tool;
 
 
+use App\Tools\Constant;
+
 class ModelFactory
 {
     # 关联模型
@@ -38,6 +40,7 @@ class ModelFactory
     public function constructWhereParam($query_where) : ModelFactory
     {
         $query_where = $this->hasWHereQUery($query_where, $this->requestParams);
+
         if ($query_where) {
             foreach ($query_where as $v) {
                 if (in_array($v[0], $this->fillable)) {
@@ -67,7 +70,7 @@ class ModelFactory
      */
     public function modelFactoryPaginate($pagesize = null, $all = false)
     {
-        return $all ? $this->model->get() : $this->model->paginate($pagesize ?? \App\Tool\Constant::PAGE_NUMBER);
+        return $all ? $this->model->get() : $this->model->paginate($pagesize ?? Constant::PAGE_NUMBER);
     }
 
     /**
