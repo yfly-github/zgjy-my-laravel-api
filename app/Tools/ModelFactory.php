@@ -2,10 +2,8 @@
 /**
  * ModelFactory 工厂处理类
  */
-namespace App\Tool;
+namespace App\Tools;
 
-
-use App\Tools\Constant;
 
 class ModelFactory
 {
@@ -71,6 +69,14 @@ class ModelFactory
     public function modelFactoryPaginate($pagesize = null, $all = false)
     {
         return $all ? $this->model->get() : $this->model->paginate($pagesize ?? Constant::PAGE_NUMBER);
+    }
+
+    /**
+     * 获取一条数据
+     * @return mixed
+     */
+    public function modelFactoryFindOne(){
+        return $this->model->first();
     }
 
     /**

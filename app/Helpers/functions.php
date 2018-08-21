@@ -24,7 +24,7 @@ function getDebugTrace()
 
 function success($data = [], $code = Response::HTTP_OK, $msg = '操作成功')
 {
-    return response()->json(['code' => $code, 'data' => $data, 'msg' => $msg]);
+    return response()->json(['code' => $code, 'result' => $data, 'msg' => $msg]);
 }
 
 function error(string $msg, $code = Response::HTTP_INTERNAL_SERVER_ERROR)
@@ -53,26 +53,6 @@ function handler_drive($callback)
         throw new \App\Exceptions\ControllerException($error_message);
     }
     return $result;
-}
-
-/**
- * 统一返回接口数据
- * @param array $data 数据内容
- * @param string $code 状态码
- * @param string $msg 提示信息
- */
-function ajaxReturn($data = null, $code = Response::HTTP_OK, $msg = '操作成功')
-{
-
-    if ($data === null) {
-        $data = new class
-        {
-        };
-    }
-
-    //json返回数据
-    $data = json_encode(['code' => $code, 'data' => $data, 'msg' => $msg],JSON_UNESCAPED_UNICODE);
-    exit($data);
 }
 
 

@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Tools\SrsHookValidate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Repositories\UserRepository as MyUserRepository;
 use App\Repositories\ActionRepository as ActionRep;
-use Illuminate\Support\Facades\Auth;
 
 
 class Usercontroller extends Controller
@@ -34,13 +32,8 @@ class Usercontroller extends Controller
         ]);
 
         $userlist = $this->users->getUserList($req);
-        $data['userlist'] = $userlist;
 
-        $actions = $this->actionRep->actionList($req);
-        $data['actions'] = $actions;
-
-
-        return success($data);
+        return success($userlist);
     }
 
     /**
@@ -51,7 +44,6 @@ class Usercontroller extends Controller
      */
     public function show(Request $request, $id)
     {
-
         $request->replace(array_merge($request->all(), array('id' => $id)));
         $user = $this->users->getUserDetail($request);
         $data['user'] = $user;

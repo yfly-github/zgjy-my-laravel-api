@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Exceptions\DatabaseException;
-use App\Tool\ModelFactory;
+use App\Tools\ModelFactory;
 use HuangYi\Rbac\RbacTrait;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     public $fillable = [
-        'name', 'email', 'password',
+        'id','name', 'email', 'password',
     ];
 
     /**
@@ -62,14 +62,13 @@ class User extends Authenticatable
             $user = (new ModelFactory(new self(),$req->all()))
                 ->constructWhereParam($query_where)
                 ->modelFactoryPaginate();
-
             if (empty($user)){
                 throw new \Exception('用户不存在');
             }
         }catch (\Exception $exception){
-            throw new DatabaseException('findUesrById：'.$exception->getMessage());
+            throw new DatabaseException('findUesrByAttributes：'.$exception->getMessage());
         }
-        return $user->first();
+        return $user;
     }
 
     /**
@@ -92,18 +91,21 @@ class User extends Authenticatable
         return $model;
     }
 
-
+    /**根据用户获取用户ID
+     * @param Request $request
+     * @return mixed
+     */
     public static function findUesrById(Request $request){
-
         $query_where = array(
-            'name'  => ['name','like','%'.$request->name.'%'],
+            'id'  => ['id','=',$request->id],
         );
 
-        return self::whereQuery(new self(),$query_where)->paginate(15);
+        $user = (new ModelFactory(new self(),$request->all()))
+            ->constructWhereParam($query_where)
+            ->modelFactoryFindOne();
 
+
+        return $user;
     }
-
-
-
 
 }
